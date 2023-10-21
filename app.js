@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 
 const taskRouter = require("./routes/taskRoutes");
+const userRouter = require("./routes/userRoutes");
 const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/appError");
 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 //# ROUTES
 app.use("/api/v1/tasks", taskRouter);
+app.use("/api/v1/users", userRouter);
 
 //# ERROR HANDLING
 app.use(globalErrorHandler);

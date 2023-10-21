@@ -9,7 +9,6 @@ exports.getAllTasks = catchAsync(async (req, res, next) => {
   //send success response
   res.status(200).json({
     status: "success",
-    message: "Data send successfully!",
     data: doc,
   });
 });
@@ -21,7 +20,6 @@ exports.createTask = catchAsync(async (req, res, next) => {
   //send success response
   res.status(201).json({
     status: "success",
-    message: "Task created successfully!",
     data: doc,
   });
 });
@@ -40,7 +38,6 @@ exports.updateTask = catchAsync(async (req, res, next) => {
   //send success response
   res.status(200).json({
     status: "success",
-    message: "Task updated successfully!",
     data: doc,
   });
 });
@@ -56,7 +53,6 @@ exports.deleteTask = catchAsync(async (req, res, next) => {
   //send success response
   res.status(204).json({
     status: "success",
-    message: "Task deleted successfully!",
     data: null,
   });
 });
