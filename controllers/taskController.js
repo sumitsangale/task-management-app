@@ -1,96 +1,62 @@
 const Task = require("./../models/taskModel");
+const catchAsync = require("./../utils/catchAsync");
+const AppError = require("./../utils/appError");
 
-exports.getAllTasks = async (req, res, next) => {
-  try {
-    //read data
-    const doc = await Task.find();
-    console.log("data", doc);
-    // SEND RESPONSE
-    res.status(200).json({
-      status: "success",
-      message: "Data send successfully!",
-      data: doc,
-    });
-  } catch (error) {
-    console.log("someting went wrong!", error);
-    res.status(400).json({
-      status: "fail",
-      message: "Data not found!",
-    });
+exports.getAllTasks = catchAsync(async (req, res, next) => {
+  //read data from DB
+  const doc = await Task.find();
+
+  //send success response
+  res.status(200).json({
+    status: "success",
+    message: "Data send successfully!",
+    data: doc,
+  });
+});
+
+exports.createTask = catchAsync(async (req, res, next) => {
+  //save requested data in DB
+  const doc = await Task.create(req.body);
+
+  //send success response
+  res.status(201).json({
+    status: "success",
+    message: "Task created successfully!",
+    data: doc,
+  });
+});
+
+exports.updateTask = catchAsync(async (req, res, next) => {
+  //upadte requested data in DB with validate
+  const doc = await Task.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!doc) {
+    return next(new AppError("No document found with that ID", 404));
   }
-};
 
-exports.createTask = async (req, res, next) => {
-  try {
-    const doc = await Task.create(req.body);
+  //send success response
+  res.status(200).json({
+    status: "success",
+    message: "Task updated successfully!",
+    data: doc,
+  });
+});
 
-    res.status(201).json({
-      status: "success",
-      message: "Task created successfully!",
-      data: {
-        data: doc,
-      },
-    });
-  } catch (error) {
-    console.log("someting went wrong!", error);
-    res.status(400).json({
-      status: "fail",
-      message: "Data not added!",
-    });
+exports.deleteTask = catchAsync(async (req, res, next) => {
+  //delete requested data from DB
+  const doc = await Task.findByIdAndDelete(req.params.id);
+
+  if (!doc) {
+    return next(new AppError("No document found with that ID", 404));
   }
-};
 
-exports.updateTask = async (req, res, next) => {
-  try {
-    const doc = await Task.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!doc) {
-      res.status(400).json({
-        status: "fail",
-        message: "Data not update!",
-      });
-      return;
-    }
-
-    res.status(200).json({
-      status: "success",
-      message: "Task updated successfully!",
-      data: doc,
-    });
-  } catch (error) {
-    console.log("someting went wrong!", error);
-    res.status(400).json({
-      status: "fail",
-      message: "Data not update!",
-    });
-  }
-};
-
-exports.deleteTask = async (req, res, next) => {
-  try {
-    const doc = await Task.findByIdAndDelete(req.params.id);
-
-    if (!doc) {
-      res.status(400).json({
-        status: "fail",
-        message: "Data not delete!",
-      });
-      return;
-    }
-
-    res.status(204).json({
-      status: "success",
-      message: "Task deleted successfully!",
-      data: null,
-    });
-  } catch (error) {
-    console.log("someting went wrong!", error);
-    res.status(400).json({
-      status: "fail",
-      message: "Data not delete!",
-    });
-  }
-};
+  //send success response
+  res.status(204).json({
+    status: "success",
+    message: "Task deleted successfully!",
+    data: null,
+  });
+});
