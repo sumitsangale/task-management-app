@@ -14,6 +14,24 @@ const taskSchema = new mongoose.Schema({
     trim: true,
     required: [true, "A task must have a description"],
   },
+  status: {
+    type: String,
+    enum: ["active", "completed"],
+    default: "active",
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: [true, "Review must belong to a user"],
+  },
+});
+
+taskSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "user",
+    select: "email",
+  });
+  next();
 });
 
 const Task = mongoose.model("Task", taskSchema);

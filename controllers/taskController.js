@@ -2,6 +2,7 @@ const Task = require("./../models/taskModel");
 const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 
+//Route controller functions
 exports.getAllTasks = catchAsync(async (req, res, next) => {
   //read data from DB
   const doc = await Task.find();
@@ -56,3 +57,10 @@ exports.deleteTask = catchAsync(async (req, res, next) => {
     data: null,
   });
 });
+
+//Route middalware
+exports.setUserIds = (req, res, next) => {
+  // Allow nested routes
+  if (!req.body.user) req.body.user = req.user.id;
+  next();
+};
