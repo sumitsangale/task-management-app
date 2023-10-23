@@ -3,6 +3,9 @@ header
     .container-fluid.d-flex.justify-content-between
       a(class="navbar-brand" href="#") TASKMANAGEMENT
       .navbar-nav
-        a(class="nav-link" aria-current="page" href="/signup") Signup 
-        a(class="nav-link" href="/login") Login
-        a(class="nav-link logout-btn" href="#") Logout
+        if user 
+          span.nav-link.d-none.d-sm-block= `Hi, ${user.name.split(' ')[0]}`
+          a(class="nav-link logout-btn" href="#") Logout
+        else
+          a(class="nav-link" aria-current="page" href="/signup") Signup 
+          a(class="nav-link" href="/login") Login

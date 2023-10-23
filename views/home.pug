@@ -11,5 +11,6 @@ block content
               h5.card-title.fw-semibold= task.name
               span(class="badge rounded-pill text-bg-warning")= task.status
             p.card-text= task.description
-            a(href="#" class="btn btn-primary d-inline-block m-1") Edit
-            a(href="#" class="btn btn-danger d-inline-block m-1") Delete
+            if user
+              a(href="#" class="btn btn-primary d-inline-block m-1") Edit
+              a(href="#" class="btn btn-danger d-inline-block m-1") Delete

@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 
 const taskRouter = require("./routes/taskRoutes");
 const userRouter = require("./routes/userRoutes");
@@ -16,8 +17,10 @@ app.set("views", path.join(__dirname, "views"));
 //# GOBAL MIDDLEWARES
 //serving static files
 app.use(express.static(path.join(__dirname, "public")));
+
 //body parser to read from request body
 app.use(express.json());
+app.use(cookieParser());
 
 //# ROUTES
 app.use("/", viewRouter);

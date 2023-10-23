@@ -104,6 +104,31 @@ exports.protectRoute = catchAsync(async (req, res, next) => {
   next();
 });
 
+exports.isLoggedIn = async (req, res, next) => {
+  if (req.cookies.jwt) {
+    try {
+      //verify token
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
+
+      //check user still exists
+      const freshUser = await User.findById(decoded.id);
+      if (!freshUser) {
+        return next();
+      }
+
+      //there is logged user , send user in template
+      res.locals.user = freshUser;
+      return next();
+    } catch (err) {
+      return next();
+    }
+  }
+  next();
+};
+
 exports.restrictTo = (...roles) => {
   return catchAsync(async (req, res, next) => {
     if (roles.includes("user") && req.user.role === "user") {
