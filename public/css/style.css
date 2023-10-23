@@ -1,0 +1,23 @@
+:root {
+  --text-color: #1a1a1a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+.content-wraper {
+  min-height: calc(100vh - 96px);
+}

@@ -3,10 +3,15 @@ const path = require("path");
 
 const taskRouter = require("./routes/taskRoutes");
 const userRouter = require("./routes/userRoutes");
+const viewRouter = require("./routes/viewRoutes");
 const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/appError");
 
 const app = express();
+
+//setting pug template
+app.set("veiw engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 
 //# GOBAL MIDDLEWARES
 //serving static files
@@ -15,6 +20,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 
 //# ROUTES
+app.use("/", viewRouter);
 app.use("/api/v1/tasks", taskRouter);
 app.use("/api/v1/users", userRouter);
 

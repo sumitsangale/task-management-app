@@ -1,0 +1,15 @@
+extends base
+
+block content 
+  .container.content-wraper 
+    h4.mt-2.mb-3.fw-semibold Checkout Tasks
+    .card-wraper
+      each task in tasks
+        .card
+          .card-body
+            .d-flex.justify-content-between.align-items-center
+              h5.card-title.fw-semibold= task.name
+              span(class="badge rounded-pill text-bg-warning")= task.status
+            p.card-text= task.description
+            a(href="#" class="btn btn-primary d-inline-block m-1") Edit
+            a(href="#" class="btn btn-danger d-inline-block m-1") Delete
