@@ -12,3 +12,15 @@ exports.getHome = catchAsync(async (req, res, next) => {
     tasks,
   });
 });
+
+exports.getSignupForm = (req, res, next) => {
+  res.status(200).render("signup.pug", {
+    title: "signup to start",
+  });
+};
+
+exports.getLoginForm = (req, res, next) => {
+  res.status(200).render("login.pug", {
+    title: "log into your account",
+  });
+};

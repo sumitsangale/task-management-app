@@ -1,0 +1,15 @@
+extends base
+
+block content
+  .container.content-wraper
+    h4 Login to manage your tasks
+    form.my-4.form-wraper.login_form
+      .mb-3 
+        label(for="loginEmail" class="form-label") Email address
+        input(type="email" class="form-control" id="loginEmail" required)
+      .mb-3 
+        label(for="loginPassword" class="form-label") Password
+        input(type="password" class="form-control" id="loginPassword" required)
+      button(type="submit" class="btn btn-primary") Submit
+    p
+      a(href="/signup" class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover") New user signup

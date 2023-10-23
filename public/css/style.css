@@ -20,4 +20,11 @@ body {
 
 .content-wraper {
   min-height: calc(100vh - 96px);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.form-wraper {
+  width: 100%;
+  max-width: 400px;
 }
