@@ -24,3 +24,19 @@ exports.getLoginForm = (req, res, next) => {
     title: "log into your account",
   });
 };
+
+exports.createTask = (req, res, next) => {
+  res.status(200).render("createtaskform.pug", {
+    title: "create task",
+  });
+};
+
+exports.editTask = catchAsync(async (req, res, next) => {
+  //read task data
+  const task = await Task.findById(req.params.id);
+
+  res.status(200).render("edittaskform.pug", {
+    title: "edit task",
+    task,
+  });
+});

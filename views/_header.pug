@@ -1,7 +1,7 @@
 header
   nav(class="navbar bg-dark navbar-expand bg-body-tertiary" data-bs-theme="dark")
     .container-fluid.d-flex.justify-content-between
-      a(class="navbar-brand" href="#") TASKMANAGEMENT
+      a(class="navbar-brand" href="/" title="home") TASKMANAGEMENT
       .navbar-nav
         if user 
           span.nav-link.d-none.d-sm-block= `Hi, ${user.name.split(' ')[0]}`

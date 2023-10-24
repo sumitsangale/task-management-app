@@ -1,0 +1,20 @@
+extends base
+
+block content 
+  .container.content-wraper 
+    h4 Edit task
+    form.my-4.form-wraper.edit-task_form
+      input(type="text" class="form-control d-none" id="edittaskId" value=`${task._id}`)
+      .mb-3 
+        label(for="edittaskName" class="form-label") Title
+        input(type="text" class="form-control" id="edittaskName" value=`${task.name}` required)
+      .mb-3 
+        label(for="edittaskStatus" class="form-label") Status
+        select(class="form-select" aria-label="Default select example" id="edittaskStatus" value=`${task.status}`)
+          option(selected= true) select
+          option(value="active" selected= (task.status == 'active')) Active
+          option(value="completed" selected= (task.status == 'completed')) Completed
+      .mb-3 
+        label(for="edittaskDescription" class="form-label") Description
+        textarea(class="form-control" id="edittaskDescription" rows="3" required)= task.description
+      button(type="submit" class="btn btn-primary") Submit

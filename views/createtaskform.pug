@@ -1,0 +1,13 @@
+extends base
+
+block content 
+  .container.content-wraper 
+    h4 Create task
+    form.my-4.form-wraper.createtask_form
+      .mb-3 
+        label(for="createtaskName" class="form-label") Title
+        input(type="text" class="form-control" id="createtaskName" required)
+      .mb-3 
+        label(for="createtaskDescription" class="form-label") Description
+        <textarea class="form-control" id="createtaskDescription" rows="3" required></textarea>
+      button(type="submit" class="btn btn-primary") Submit

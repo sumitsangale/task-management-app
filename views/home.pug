@@ -1,8 +1,12 @@
 extends base
 
 block content 
-  .container.content-wraper 
-    h4.mt-2.mb-3.fw-semibold Checkout Tasks
+  .container.content-wraper
+    .d-flex.justify-content-between.align-items-center
+      h4.mt-2.mb-3.fw-semibold Checkout Tasks
+      if user
+        a(href="/create-task" class="btn btn-primary") Add Task
+
     .card-wraper
       each task in tasks
         .card
@@ -12,5 +16,5 @@ block content
               span(class="badge rounded-pill text-bg-warning")= task.status
             p.card-text= task.description
             if user
-              a(href="#" class="btn btn-primary d-inline-block m-1") Edit
-              a(href="#" class="btn btn-danger d-inline-block m-1") Delete
+              a(href=`/edit-task/${task._id}` class="btn btn-primary d-inline-block m-1") Edit
+              a(class="btn btn-danger d-inline-block m-1 delete-task-btn" data-task-id=`${task._id}`) Delete
