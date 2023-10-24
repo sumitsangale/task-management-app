@@ -38,6 +38,23 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/js/bundle.js", (req, res) => {
+  res.setHeader("Content-Type", "application/javascript");
+  // Serve your JavaScript file here
+});
+
+app.use((req, resp, next) => {
+  resp.setHeader(
+    "Access-Control-Allow-Headers",
+    "origin, Content-Type, x-requested-with, Accept, Authorization"
+  );
+  resp.setHeader(
+    "Access-Control-Allow-Methods",
+    "POST, GET,PATCH, PUT, DELETE, OPTIONS"
+  );
+  next();
+});
+
 //# ROUTES
 app.use("/", viewRouter);
 app.use("/api/v1/tasks", taskRouter);
