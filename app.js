@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const helmet = require("helmet");
 
 const taskRouter = require("./routes/taskRoutes");
 const userRouter = require("./routes/userRoutes");
@@ -18,6 +19,21 @@ app.set("views", path.join(__dirname, "views"));
 //serving static files
 app.use(express.static(path.join(__dirname, "public")));
 
+// Set security headers
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        connectSrc: ["'self'", "ws://localhost:*"],
+        imgSrc: ["'self'", "*", "data:"],
+        scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
+        frameSrc: ["'self'"],
+      },
+    },
+  })
+);
+
 //body parser to read from request body
 app.use(express.json());
 app.use(cookieParser());
@@ -32,11 +48,6 @@ app.use(globalErrorHandler);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-});
-
-app.get("/js/bundle.js", (req, res) => {
-  res.setHeader("Content-Type", "application/javascript");
-  // Serve your JavaScript file here
 });
 
 module.exports = app;
