@@ -12294,7 +12294,8 @@ if (editTaskForm) {
     console.log(name, status, description, id);
     (0, _taskaction.taskAction)({
       name: name,
-      description: description
+      description: description,
+      status: status
     }, "/api/v1/tasks/".concat(id), "PATCH");
   });
 }

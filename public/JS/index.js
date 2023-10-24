@@ -54,7 +54,7 @@ if (editTaskForm) {
     const description = document.getElementById("edittaskDescription").value;
     const id = document.getElementById("edittaskId").value;
     console.log(name, status, description, id);
-    taskAction({ name, description }, `/api/v1/tasks/${id}`, "PATCH");
+    taskAction({ name, description, status }, `/api/v1/tasks/${id}`, "PATCH");
   });
 }
 
