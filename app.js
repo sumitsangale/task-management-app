@@ -38,11 +38,6 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/js/bundle.js", (req, res) => {
-  res.setHeader("Content-Type", "application/javascript");
-  // Serve your JavaScript file here
-});
-
 app.use((req, resp, next) => {
   resp.setHeader(
     "Access-Control-Allow-Headers",
@@ -52,6 +47,12 @@ app.use((req, resp, next) => {
     "Access-Control-Allow-Methods",
     "POST, GET,PATCH, PUT, DELETE, OPTIONS"
   );
+  next();
+});
+
+app.get("/js/bundle.js", (req, res, next) => {
+  res.setHeader("Content-Type", "application/javascript");
+  // Serve your JavaScript file here
   next();
 });
 
