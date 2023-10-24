@@ -36,6 +36,10 @@ const sendErrorDev = (err, req, res) => {
     });
   }
   console.error("ERROR **", err);
+  return res.status(err.statusCode).render("error.pug", {
+    title: "Somthing went wrong!",
+    msg: err.message,
+  });
 };
 
 const sendErrorProd = (err, req, res) => {
@@ -57,6 +61,23 @@ const sendErrorProd = (err, req, res) => {
       message: "Something went very wrong!",
     });
   }
+
+  // B) For Render Error page
+  // Operational, trusted error: send message to client
+  if (err.isOperational) {
+    return res.status(err.statusCode).render("error.pug", {
+      title: "Somthing went wrong!",
+      msg: err.message,
+    });
+  }
+  // Programming or other unknown error: don't leak error details
+  // 1) Log error
+  console.error("ERROR **", err);
+  // 2) Send generic message
+  return res.status(err.statusCode).render("error.pug", {
+    title: "Somthing went wrong!",
+    msg: "Please try again later.",
+  });
 };
 
 module.exports = (err, req, res, next) => {
