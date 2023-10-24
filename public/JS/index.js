@@ -66,8 +66,9 @@ if (deleteTaskBtn && deleteTaskBtn.length > 0) {
 
 function deleteTask(e) {
   e.preventDefault();
+  e.target.textContent = "Processing...";
   const id = e.target.dataset.taskId;
   if (!id) return;
   console.log("delete task", e.target.dataset.taskId);
-  taskAction({}, `/api/v1/tasks/${id}`, "DELETE");
+  taskAction(null, `/api/v1/tasks/${id}`, "DELETE");
 }

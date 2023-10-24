@@ -1,8 +1,14 @@
 import axios from "axios";
-import { showAlert } from "./alert";
+import { showAlert, showSpinner, hideSpinner } from "./alert";
+
+let formSubmitted = false;
 
 export const signup = async (data, url) => {
   try {
+    if (formSubmitted) return;
+    formSubmitted = true;
+    showSpinner();
+
     const res = await axios({
       method: "POST",
       url,
@@ -14,7 +20,11 @@ export const signup = async (data, url) => {
         location.assign("/");
       }, 1500);
     }
+    formSubmitted = false;
+    hideSpinner();
   } catch (err) {
+    hideSpinner();
+    formSubmitted = false;
     showAlert("danger", err.response.data.message);
     console.log(err.response.data);
   }
