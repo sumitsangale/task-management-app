@@ -34,4 +34,9 @@ app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
+app.get("/js/bundle.js", (req, res) => {
+  res.setHeader("Content-Type", "application/javascript");
+  // Serve your JavaScript file here
+});
+
 module.exports = app;
